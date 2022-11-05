@@ -1,13 +1,8 @@
 import argparse
 from types import ModuleType
 
-from commands import (
-    bitrate_samples,
-    generate_dash,
-    generate_subtitles,
-    remove_audio,
-    separate_audio,
-)
+from commands import (bitrate_samples, generate_dash, generate_subtitles,
+                      remove_audio, separate_audio)
 
 
 class Command:
@@ -45,7 +40,7 @@ subparsers = parser.add_subparsers(dest="command", help="sub-commands")
 for command in COMMANDS:
     # create subparser and add arguments for command
     command.module.register_arguments(
-        subparsers.add_parser(command.name, aliases=command.aliases)
+        subparsers.add_parser(command.name, aliases=command.aliases, description=command.description)
     )
 
 
