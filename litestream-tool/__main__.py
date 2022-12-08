@@ -1,8 +1,14 @@
 import argparse
 from types import ModuleType
 
-from commands import (bitrate_samples, generate_dash, generate_subtitles,
-                      remove_audio, separate_audio)
+from commands import (
+    bitrate_samples,
+    generate_dash,
+    generate_dash_quick,
+    generate_subtitles,
+    remove_audio,
+    separate_audio,
+)
 
 
 class Command:
@@ -28,6 +34,11 @@ COMMANDS = [
         "Create samples of given video for different bitrates",
     ),
     Command(generate_dash, ["gd"], "Generate MPEG-DASH package with manifest file"),
+    Command(
+        generate_dash_quick,
+        ["gdq"],
+        "Generate MPEG-DASH package with manifest file (Fast)",
+    ),
     Command(generate_subtitles, ["gs"], "Generate subtitles with Google whisper"),
     Command(remove_audio, ["ra"], "Remove audio from video file"),
     Command(separate_audio, ["sa"], "Seperate audio from fiven video file"),
@@ -40,7 +51,9 @@ subparsers = parser.add_subparsers(dest="command", help="sub-commands")
 for command in COMMANDS:
     # create subparser and add arguments for command
     command.module.register_arguments(
-        subparsers.add_parser(command.name, aliases=command.aliases, description=command.description)
+        subparsers.add_parser(
+            command.name, aliases=command.aliases, description=command.description
+        )
     )
 
 

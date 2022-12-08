@@ -51,6 +51,11 @@ class VideoFile:
             "s": s,
         }
 
+    @property
+    def duration_humanformat(self):
+        hms = self.get_hms_duration()
+        return f"{hms['h']:02d}:{hms['m']:02d}:{hms['s']:02d}"
+
     def destroy(self):
         """
         Remove this file
